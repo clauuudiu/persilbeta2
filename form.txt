@@ -1,0 +1,1 @@
+<form name=\"sync\" method=\"post\" action=\"http://android.fullweb.eu/henkel/form.php\"><input type=\"text\" value=\""+showNume+"\" name=\"nume\"><input type=\"text\" value=\""+showPrenume+"\" name=\"prenume\"><input type=\"text\" value=\""+showEmail+"\" name=\"email\"><input type=\"hidden" value=\""+showTelefon+"\" name=\"telefon\"></form>

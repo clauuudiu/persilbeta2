@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Henkel - Persil</title>
+</head>
+
+<body>
+
+<div id="wrapper">
+<div id="middle">
+	<button onclick="generate()">Genereaza</button>
+	
+	
+	<script type="text/javascript">
+		function generate(){
+		var premii = [];
+		var q1 = window.localStorage.getItem("Premiul1");
+		var q2 = window.localStorage.getItem("Premiul2");
+		var q3 = window.localStorage.getItem("Premiul3");
+		
+		if (q1>0){
+		premii.push("Premiul 1");
+		}
+		if (q2>0){
+		premii.push("Premiul 2");
+		}
+		if (q3>0){
+		premii.push("Premiul 3");
+		}
+		
+		var rand = premii[Math.floor(Math.random() * premii.length)];
+		var generated = "";
+		generated += "Premii posibile: " + premii;
+		generated += "<br>";
+		generated += "Ati castigat premiul: " + rand;
+		generated += "<br>";
+		if(rand == "Premiul 1")
+		{
+			q1-=1;
+			window.localStorage.setItem("Premiul1", q1);
+		}
+						
+		if(rand == "Premiul 2")
+		{
+			q2-=1;
+			window.localStorage.setItem("Premiul2", q2);
+		}
+		
+		if(rand == "Premiul 3")
+		{
+			q3-=1;
+			window.localStorage.setItem("Premiul3", q3);
+		}
+		
+		generated += "<br>Stocuri noi:<br>Premiul 1: " + q1 + "<br>Premiul 2: " + q2 + "<br>Premiul 3: " + q3;
+		document.getElementById("result").innerHTML = generated;
+	}
+	</script>
+	<div id="result">
+	
+
+	</div>
+</div>
+	<div id="menu">
+		
+		<ul>
+			<li><a href="index.html">Home</a></li>
+			<li><a href="quantities.html">Settings</a></li>
+			<li><a href="sync.html">Sync</a></li>
+		
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+
+</div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+	<!-- set width and height -->
+<script type="text/javascript">
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	document.getElementById("wrapper").style.width = width + "px";
+	document.getElementById("wrapper").style.height = height + "px";
+</script>
+</body>
+</html>

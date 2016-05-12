@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Setare Stocuri</title>
+</head>
+
+<body>
+<script src="js/pouchdb.js"></script>
+<div id="wrapper">	
+	
+	<div id="middle">
+	
+		<h2>Administrare stocuri premii</h2>
+		<p style="font-size: 14px; font-weight: bold;">***Stocurile actuale sunt: <span id="result"></span></p>
+		<p>In cazul in care doriti sa modificati stocurile, introduceti cantitatile noi in campurile de mai jos:</p>
+		<script type="text/javascript">
+			function quantities(){
+			var premiul1 = document.getElementById("setPremiul1").value;
+			var premiul2 = document.getElementById("setPremiul2").value;
+			var premiul3 = document.getElementById("setPremiul3").value;
+			window.localStorage.setItem("Premiul1", premiul1);
+			window.localStorage.setItem("Premiul2", premiul2);
+			window.localStorage.setItem("Premiul3", premiul3);
+			return false;
+			}
+		</script>
+
+		<form method="post" onSubmit="return quantities()" data-ajax="false">
+			<label>
+			   Premiul 1: 
+				<input type="text" id="setPremiul1" name="setPremiul1" placeholder="" /><br>
+			</label>
+			<label>
+				Premiul 2: 
+				<input type="text" id="setPremiul2" name="setPremiul2" placeholder="" /><br>
+			</label>
+			<label>
+				Premiul 3: 
+				<input type="text" id="setPremiul3" name="setPremiul3" placeholder="" /><br>
+			</label>
+			<input type="submit" value="Trimite" onClick="window.location.reload()"/>
+		</form>
+		<p style="font-size: 14px; font-weight: bold; color: #ff0000;">Atentie: Stocurile se modifica automat dupa generarea unui premiu. Nu trebuie sa actualizati stocurile decat daca ati intervenit asupra lor manual.</p>
+	
+	</div>
+	
+
+	<script type="text/javascript">
+		var q1 = window.localStorage.getItem("Premiul1");
+		var q2 = window.localStorage.getItem("Premiul2");
+		var q3 = window.localStorage.getItem("Premiul3");
+		var stocuri = "";
+		stocuri += "Premiul 1: <span style=\"color:red;\">";
+		stocuri += q1;
+		stocuri += "<\/span>, Premiul 2: <span style=\"color:red;\">";
+		stocuri += q2;
+		stocuri += "<\/span>, Premiul 3: <span style=\"color:red;\">";
+		stocuri += q3;
+		document.getElementById("result").innerHTML = stocuri;
+	</script>
+	
+	</span>
+	<div id="menu">
+		
+		<ul>
+			<li><a href="index.html">Home</a></li>
+			<li><a href="quantities.html">Settings</a></li>
+			<li><a href="sync.html">Sync</a></li>
+		
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	
+</div>
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+	<!-- set width and height -->
+<script type="text/javascript">
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	document.getElementById("wrapper").style.width = width + "px";
+	document.getElementById("wrapper").style.height = height + "px";
+</script>
+</body>
+</html>
